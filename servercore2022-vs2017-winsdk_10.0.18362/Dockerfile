@@ -1,7 +1,7 @@
 # escape=`
 
-# Use the latest Windows Server Core 2019 image.
-FROM mcr.microsoft.com/windows/servercore:ltsc2019
+# Use the latest Windows Server Core 2022 image.
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
 
 # Restore the default Windows shell for correct batch processing.
 SHELL ["cmd", "/S", "/C"]
@@ -16,7 +16,7 @@ RUN `
     # Download Chromium depot_tools
     && curl -SL --output depot_tools.zip https://storage.googleapis.com/chrome-infra/depot_tools.zip `
     `
-    # Install Visual Studio 2017 with the specifications provided chromium Windows build guide, excluding workloads and components with known issues.
+    # Install Build Tools with the specifications provided chromium Windows build guide, excluding workloads and components with known issues.
     && (start /w vs_community.exe --quiet --wait --norestart --nocache `
         --installPath "%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community" `
         --add Microsoft.VisualStudio.Workload.NativeDesktop `
@@ -38,7 +38,7 @@ RUN `
     # Cleanup
     && del /q vs_community.exe winsdksetup.exe `
     `
-    # unzip depot_tools
+    # unzip depot_tools for chromium
     && mkdir depot_tools && tar -xf depot_tools.zip -C depot_tools && del /q depot_tools.zip `
     `
     # add depot_tools to path
