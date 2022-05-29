@@ -7,11 +7,13 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2022
 SHELL ["cmd", "/S", "/C"]
 
 RUN `
-    # Download the Visual Studio 2019 bootstrapper.
-    curl -SL --output vs_community.exe https://aka.ms/vs/16/release/vs_community.exe `
+    cd "%userprofile%" `
     `
-    # Download Windows SDK 10.0.20348
-    && curl -SL --output winsdksetup.exe https://go.microsoft.com/fwlink/?linkid=2164145 `
+    # Download the Visual Studio 2019 bootstrapper.
+    && curl -SL --output vs_community.exe https://aka.ms/vs/16/release/vs_community.exe `
+    `
+    # Download Windows SDK 10.0.19041
+    && curl -SL --output winsdksetup.exe https://go.microsoft.com/fwlink/?linkid=2120843 `
     `
     # Download Chromium depot_tools
     && curl -SL --output depot_tools.zip https://storage.googleapis.com/chrome-infra/depot_tools.zip `
@@ -40,7 +42,7 @@ RUN `
     && mkdir depot_tools && tar -xf depot_tools.zip -C depot_tools && del /q depot_tools.zip `
     `
     # add depot_tools to path
-    && setx /M path "C:\depot_tools;%path%" `
+    && setx /M path "%userprofile%\depot_tools;%path%" `
     `
     # update depot tools
     && cd depot_tools && update_depot_tools.bat

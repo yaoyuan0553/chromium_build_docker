@@ -1,7 +1,7 @@
 # escape=`
 
-# Use the latest Windows Server Core 2019 image.
-FROM mcr.microsoft.com/windows/servercore:ltsc2019
+# Use the latest Windows Server Core 2022 image.
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
 
 # Restore the default Windows shell for correct batch processing.
 SHELL ["cmd", "/S", "/C"]
@@ -37,13 +37,13 @@ RUN `
     && del /q vs_community.exe winsdksetup.exe `
     `
     # unzip depot_tools for chromium
-    && mkdir depot_tools && tar -xf depot_tools.zip -C depot_tools && del /q depot_tools.zip `
+    && mkdir "%userprofile%\depot_tools" && tar -xf depot_tools.zip -C "%userprofile%\depot_tools" && del /q depot_tools.zip `
     `
     # add depot_tools to path
-    && setx /M path "C:\depot_tools;%path%" `
+    && setx /M path "%userprofile%\depot_tools;%path%" `
     `
     # update depot tools
-    && cd depot_tools && update_depot_tools.bat
+    && cd "%userprofile%\depot_tools" && update_depot_tools.bat
 
 # Define the entry point for the docker container.
 # This entry point starts the developer command prompt and launches the PowerShell shell.
