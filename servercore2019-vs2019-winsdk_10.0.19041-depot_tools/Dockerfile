@@ -1,8 +1,8 @@
 # escape=`
 
-# Use the prebuilt Windows Server Core 2022 image with 
+# Use the prebuilt Windows Server Core 2019 image with 
 # Visual Studio 2019 and Windows SDK 10.0.19041 installed.
-FROM linuxez0553/servercore2022-vs2019-winsdk_10.0.19041
+FROM linuxez0553/servercore2019-vs2019-winsdk_10.0.19041
 
 # Restore the default Windows shell for correct batch processing.
 SHELL ["cmd", "/S", "/C"]
